@@ -1,0 +1,9 @@
+.cr {
+    border-radius: 25px;
+    transition: all ease 200ms;
+    cursor: pointer;
+}
+
+.cr:hover {
+    transform: scale(1.05);
+}
