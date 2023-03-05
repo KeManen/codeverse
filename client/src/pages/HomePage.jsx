@@ -7,7 +7,6 @@ import { useAuthUser } from "react-auth-kit";
 export default function HomePage() {
     const [posts, setPosts] = useState([]);
     const user = useAuthUser();
-    console.log(user())
     useEffect(()=> {
         let isMounted = false;
         fetch("/api/post/").then(res => res.json()).then(data =>{
