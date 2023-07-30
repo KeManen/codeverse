@@ -4,19 +4,19 @@ import HomePage from './pages/HomePage';
 import Register from './pages/RegisterPage';
 import PostPage from "./pages/PostPage"
 import { Routes, Route } from 'react-router-dom'
+import Container from '@mui/material/Container';
 import './App.css';
 
-function App() {
-
-  return <div className="App">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login  />} />
-        <Route path="/register" element={<Register  />} />
-        <Route path="/post/:slug" element={<PostPage />} />
-      </Routes>
-    </div>
-}
+const App = () => (
+  <Container>
+    <NavBar />
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register  />} />
+      <Route path="/post/:slug" element={<PostPage />} />
+    </Routes>
+  </Container>
+);
 
 export default App;

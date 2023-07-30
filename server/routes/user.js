@@ -42,7 +42,15 @@ router.post('/login', async (_req, res) => {
     bcrypt.compare(password, user.password, (err, result) => {
       if(result){
         const token = jwt.sign({"email":email}, process.env.JWT_SECRET || 'secret');
-        const json = {"success": true, "token":token};
+        const json = {
+          "success": true, 
+          "token":token,
+          "expiresIn": 3600,
+          "authUserState": {
+            "email": email,
+            "username": user.username
+          }
+        };
         
         console.info(json);
         return res.send(json);

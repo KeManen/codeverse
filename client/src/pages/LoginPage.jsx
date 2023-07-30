@@ -8,35 +8,41 @@ export default function Login() {
     const navigate = useNavigate();
 
     //Submit login data to the backend to be validated from the database
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault()
         const data = {
             "email": e.target.email.value,
             "password": e.target.password.value,
         };
         console.log(data);
+        
+        try{
+            const res = await fetch("/api/user/login", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(data),
+                mode: "cors"
+            });
+            if(!res.ok) throw res;
+            
+            const logindata = await res.json();
 
-        fetch("/api/user/login", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: JSON.stringify(data),
-            mode: "cors"
-        }).then(response => response.json())
-        .then((data) => {
-            if (data.token){
-                console.log(data)
-                signIn({
-                    token: data.token,
-                    expiresIn: 3600,
-                    tokenType: "Bearer",
-                    authState : {"data":data}
-                });
-                console.log("logged in");
-                navigate("/");
-            } 
-        }).catch(console.error)
+            console.log(logindata)
+
+            if(!(signIn({
+                token: logindata.token,
+                expiresIn: logindata.expiresIn,
+                tokenType: "Bearer",
+                authState : logindata.authUserState,
+            }))) throw new Error("Failed to sign in");
+
+            console.log("logged in");
+            navigate("/");
+        }catch(err){
+            console.error(err);
+        }
     }
 
     return <Card>
