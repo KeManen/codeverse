@@ -1,5 +1,4 @@
-require('dotenv').config();
-
+const dotenv = require('dotenv');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -7,6 +6,8 @@ const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
 
+
+dotenv.config();
 const app = express();
 
 app.use(morgan('dev'));
