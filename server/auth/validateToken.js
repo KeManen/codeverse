@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
 
 module.exports = function validateToken(req, res, next) {
-    const authHeader = req.headers["authorization"];
+    console.log("Validating token");
+    console.log(req.headers)
+    const authHeader = req.headers["authentication"];
     console.log(authHeader);
     let token;
     if (authHeader) {
@@ -11,7 +13,7 @@ module.exports = function validateToken(req, res, next) {
     }
     if (token == null) return res.sendStatus(401);
     console.log("Token found");
-    jwt.verify(token, process.env.SECRET.toString(), (err, user) => {
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
         req.user = user;
         next();
