@@ -36,12 +36,14 @@ router.post('/login', async (_req, res) => {
     const { email, password } = _req.body;
     console.info("email "+email);
     console.info("pass "+password);
+    console.log(process.env.JWT_SECRET)
     const user = await User.findOne({ email : email });
+
     if( !user ) return res.status(403).send({ "email": 'Email does not exist' });
     
     bcrypt.compare(password, user.password, (err, result) => {
       if(result){
-        const token = jwt.sign({"email":email}, process.env.JWT_SECRET || 'secret');
+        const token = jwt.sign({"email":email}, process.env.JWT_SECRET);
         const json = {
           "success": true, 
           "token":token,
