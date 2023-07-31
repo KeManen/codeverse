@@ -3,6 +3,7 @@ let router = express.Router();
 const Post = require("../models/Post");
 const User = require("../models/User");
 const Comment = require("../models/Comment")
+const verifyToken = require("../auth/validateToken");
 
 //Get posts from the database
 router.get("/", async (req, res, next) => {
@@ -18,14 +19,14 @@ router.get("/", async (req, res, next) => {
 });
 
 //POST route for posting posts
-router.post("/", async (req, res, next) => {
+router.post("/", verifyToken, async (req, res) => {
     const {email, postContent, postTitle} = req.body;
     console.log("adding post", email, postContent, postTitle)
     await User.findOne({ "email" : email }).then((user) => {
         console.log("userfound!" +user)
         //If user is found, then create new post for the user and save it into the database
         if (user) {
-             new Post({
+                new Post({
                 email: email,
                 postTitle: postTitle,
                 postContent: postContent,
@@ -42,7 +43,7 @@ router.post("/", async (req, res, next) => {
 });
 
 //GET route for comments
-router.get("/comments", async (req, res, next) => {
+router.get("/comments", async (req, res) => {
     //Find comments in the database
     const { postTitle } = req.body;
     await Comment.find({"postTitle":postTitle}).then((comments) => {
@@ -55,7 +56,7 @@ router.get("/comments", async (req, res, next) => {
 })
 
 //POST route for comments
-router.post("/comment", async (req, res, next) => {
+router.post("/comment", verifyToken, async (req, res) => {
     const {comment, email, postTitle} = req.body
     //Find user based on the user ID on the comment body
     await User.findOne({ "email": email }).then((name) =>
