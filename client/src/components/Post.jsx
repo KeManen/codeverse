@@ -3,12 +3,17 @@ import Comment from "./Comment";
 import {useState, useEffect} from 'react';
 import { useIsAuthenticated, useAuthHeader } from "react-auth-kit";
 
+///
+/// This component is used to fetch and display a post. It also handles the comments on the post.
+///
+
 export default function Post({id}) {
     const [post, setPostData] = useState({})
     const [comments, setComments] = useState([])
     const isAuthenticated = useIsAuthenticated();
     const token = useAuthHeader();
 
+    // fetch the post and comments and display them on the page if the component is mounted
     useEffect(() => {
         let isMounted = true;
         fetch(`/api/post/${id}`).then(response => response.json()).then(json => {
@@ -24,6 +29,7 @@ export default function Post({id}) {
         return () => { isMounted = false };
     }, [id])
 
+    // submit a comment to the backend
     const submitComment = (e) => {
         e.preventDefault();
         if(!isAuthenticated()){
@@ -66,9 +72,11 @@ export default function Post({id}) {
                     <Button variant="primary" type="submit">POST!</Button>
                 </FormControl>
             </form>
+        </CardActionArea>
+        <CardContent>
             <ul>
                 {comments.map((comment) => <li key={comment.id}><Comment comment={comment.comment} username={comment.username}/></li>)}
             </ul>
-        </CardActionArea>
+        </CardContent>
     </Card>
 }

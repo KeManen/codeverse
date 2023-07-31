@@ -2,6 +2,9 @@ import Post from '../components/Post.jsx';
 import { Box } from '@mui/system';
 import { useState, useEffect } from 'react';
 
+///
+/// This component is used to display all the posts on the page.
+///
 export default function PostPage(props) {
     const [posts, setPosts] = useState([]);
     

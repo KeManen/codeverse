@@ -2,12 +2,16 @@ import {Box, Card, CardHeader, FormControl, TextField, Button, CardActions} from
 import { useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
 import PostPage from "./PostPage";
 
-//Front page
+///
+/// This component is used to display the home page. It also handles the post creation.
+///
+
 export default function HomePage() {
     const user = useAuthUser();
     const token = useAuthHeader();
     const isAuthenticated = useIsAuthenticated();
 
+    // submit a post to the backend
     const handlePost = (e) => {
         e.preventDefault();
         if(!isAuthenticated()){

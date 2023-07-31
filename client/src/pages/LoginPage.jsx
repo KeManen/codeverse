@@ -2,7 +2,9 @@ import {Button, FormControl,  CardContent, Card, TextField, CardHeader} from "@m
 import { useSignIn } from "react-auth-kit";
 import { useNavigate } from "react-router-dom";
 
-//Login page
+///
+/// This component is used to display a login page. It also handles the login. use react-auth-kit to get the auth
+///
 export default function Login() {
     const signIn =  useSignIn();
     const navigate = useNavigate();
@@ -14,7 +16,6 @@ export default function Login() {
             "email": e.target.email.value,
             "password": e.target.password.value,
         };
-        console.log(data);
         
         try{
             const res = await fetch("/api/user/login", {
@@ -25,6 +26,7 @@ export default function Login() {
                 body: JSON.stringify(data),
                 mode: "cors"
             });
+
             if(!res.ok) throw res;
             
             const logindata = await res.json();

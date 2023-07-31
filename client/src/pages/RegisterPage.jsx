@@ -1,4 +1,8 @@
 import {Button, FormControl, Card, TextField, CardHeader, CardContent} from "@mui/material";
+
+///
+/// This component is used to display a register page. It also handles the register.
+///
 export default function Register() {
     const submit = (e) => {
         e.preventDefault()

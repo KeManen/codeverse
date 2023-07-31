@@ -8,8 +8,7 @@
     "install": "cd client && npm install",
     "dev:client": "cd client && npm start",
     "start": "cd server && npm start",
-    "build": "cd client && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cd client && npm run build"
   },
   "author": "Konsta Keski-Mattinen",
   "license": "ISC"
