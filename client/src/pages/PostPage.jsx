@@ -1,9 +1,23 @@
 import Post from '../components/Post.jsx';
+import { Box } from '@mui/system';
+import { useState, useEffect } from 'react';
 
 export default function PostPage(props) {
-    const id = props.match.params.slug;
+    const [posts, setPosts] = useState([]);
+    
+    useEffect(()=> {
+        fetch("/api/post/").then(res => res.json()).then(data =>{
+            console.log(data)
+            setPosts(data)
+        }).catch(console.error);
+    }, [])
 
-    return <div>
-        <Post id={id} />
-    </div>
+    return <Box>
+                <ul>
+                    {posts?.map(post => 
+                    <li key={post?.id}>
+                        <Post id={post?.id} />
+                    </li>)}
+                </ul>
+            </Box>
 }
