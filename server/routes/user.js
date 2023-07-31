@@ -49,6 +49,7 @@ router.post('/login', async (_req, res) => {
           "token":token,
           "expiresIn": 3600,
           "authUserState": {
+            "_id": user._id,
             "email": email,
             "username": user.username
           }

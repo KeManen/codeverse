@@ -15,6 +15,7 @@ const createPost = async (postId) => {
         "postTitle": post.postTitle,
         "postContent": post.postContent,
         "posterName": user.username,
+        "posterId": user._id,
     }
 }
 
