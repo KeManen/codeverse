@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Code Sharing Website
 
 A website for sharing code snippets. Users can register, login, post code snippets, comment, and vote on posts. The website is built using Node.js for the backend, React for the frontend, and MongoDB for the database.
@@ -86,6 +85,4 @@ start
 |Mandatory requirements              | 25   |
 |Utilisation of Frontend framework   | 5    |
 |Code highlighting with highlight.js | 2    |
-
 |Total                               | 32   |
->>>>>>> 6b0b55f8ea1376d55642619727b61eee36d2b63f
