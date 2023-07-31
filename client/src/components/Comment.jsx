@@ -1,10 +1,15 @@
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 
-export default function Comment(props){
-    return <Card variant="outlined">
-        <CardHeader title={props.comment.poster} />
+export default function Comment({comment, username}){
+    return (
+    <Card variant="outlined">
+        <CardHeader title={username} />
+        <Typography>Comment</Typography>
         <CardContent>
-            {props.comment.content}
+            <Typography>
+                {comment}
+            </Typography>
         </CardContent>
     </Card>
+    )
 }
