@@ -18,10 +18,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors({ origin: "http://localhost:3000", optionsSuccessStatus: 200 }))
 
+app.use(express.static(path.resolve(__dirname, '../client/build')));
+
 //Use routes
-app.use('/', require('./routes/index'));
 app.use('/api/user', require('./routes/user'));
 app.use('/api/post', require('./routes/post'));
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

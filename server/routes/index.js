@@ -1,9 +1,13 @@
 let express = require('express');
 let router = express.Router();
 
-/* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+
+
+// Handle GET requests to /api route
+app.get("/api", (req, res) => {
+  res.json({ message: "Hello from server!" });
 });
+
+
 
 module.exports = router;
