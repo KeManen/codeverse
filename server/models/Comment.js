@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const Post = require("./Post");
+const { ObjectId } = require("mongodb");
 
 //Schema for comments
 const commentSchema = new mongoose.Schema({
-    postTitle: String,
+    postId: ObjectId,
+    commenterId : ObjectId,
     comment: String,
-    username: String
 });
 
 module.exports =  mongoose.model("Comment", commentSchema);
