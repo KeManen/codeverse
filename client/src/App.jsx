@@ -14,6 +14,7 @@ const App = () => (
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register  />} />
+      <Route path="/posts" element={<PostPage />} />
       <Route path="/post/:slug" element={<PostPage />} />
     </Routes>
   </Container>
