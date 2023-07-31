@@ -1,10 +1,10 @@
-import { AppBar, Toolbar, Box, Button, ButtonGroup } from "@mui/material";
-import { useSignOut, useIsAuthenticated } from "react-auth-kit";
+import { AppBar, Toolbar, Box, Button, ButtonGroup, Typography } from "@mui/material";
+import { useSignOut, useIsAuthenticated, useAuthUser } from "react-auth-kit";
 
 export default function NavBar(props) {
     const singOut = useSignOut();
     const auth = useIsAuthenticated();
-    console.log("auth"+auth())
+    const user = useAuthUser();
 
     if(auth()){
         return <AppBar position="sticky">
@@ -16,9 +16,9 @@ export default function NavBar(props) {
                     </ButtonGroup>
                 </Box>
                 <Box sx={{ flexGrow: 1 }}>
-                    <p>
-                        {"Logged In"}
-                    </p>
+                    <Typography>
+                        {`Welcome ${user().username}`}
+                    </Typography>
                     <ButtonGroup>
                         <Button color="inherit" onClick={() => singOut()}>Sign Out</Button>
                     </ButtonGroup>
