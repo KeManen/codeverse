@@ -62,7 +62,9 @@ export default function Post({id}) {
             {post?.posterName}
         </Typography>
         <CardContent>
+            <pre><code>
             {post?.postContent}
+            </code></pre>
         </CardContent>
         <CardActionArea>
             <Typography>Comments</Typography>
