@@ -43,7 +43,7 @@ router.post('/login', async (_req, res) => {
     
     bcrypt.compare(password, user.password, (err, result) => {
       if(result){
-        const token = jwt.sign({"email":email}, process.env.JWT_SECRET);
+        const token = jwt.sign({"_id":user._id}, process.env.JWT_SECRET);
         const json = {
           "success": true, 
           "token":token,
