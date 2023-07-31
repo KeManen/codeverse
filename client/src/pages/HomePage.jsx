@@ -1,23 +1,19 @@
-import { useEffect, useState } from "react"
-import Post from "../components/Post";
-import {Box, Card, CardHeader, FormControl, TextField, Button} from "@mui/material";
-import { useAuthUser } from "react-auth-kit";
+import {Box, Card, CardHeader, FormControl, TextField, Button, CardActions} from "@mui/material";
+import { useAuthHeader, useAuthUser, useIsAuthenticated} from "react-auth-kit";
+import PostPage from "./PostPage";
 
 //Front page
 export default function HomePage() {
-    const [posts, setPosts] = useState([]);
     const user = useAuthUser();
-    useEffect(()=> {
-        let isMounted = false;
-        fetch("/api/post/").then(res => res.json()).then(data =>{
-            if(isMounted){
-                setPosts(data)
-            }
-        }).catch(console.error);
-    })
+    const token = useAuthHeader();
+    const isAuthenticated = useIsAuthenticated();
 
     const handlePost = (e) => {
         e.preventDefault();
+        if(!isAuthenticated()){
+            alert("You need to be logged in to post!");
+            return;
+        }
         const data = {
             "email": user()?.email, 
             "postContent":e.target.postContent.value,
@@ -26,6 +22,7 @@ export default function HomePage() {
         fetch("/api/post/", {
             method: "POST",
             headers: {
+                "Authentication": token(),
                 "Content-type": "application/json"
             },
             body: JSON.stringify(data),
@@ -33,26 +30,24 @@ export default function HomePage() {
         }).catch(console.error);
     }
 
-    
-
     return <>
         <Box>
             <h1>Hello World!</h1>
-            <ul>
-                {posts.map(post => <Post post={post} />)}
-            </ul>
         </Box>
         <Box>
             <Card>
-                <h1>Post</h1>
-                <form onSubmit={handlePost}>
+                <CardHeader>Post</CardHeader>
+                <CardActions>
+                    <form onSubmit={handlePost}>
                     <FormControl>
                         <TextField equired={true} name="postTitle" id="text" label="Intresting title!" />
                         <TextField equired={true} name="postContent" id="text" label="Write your code!" />
                         <Button variant="primary" type="submit">POST!</Button>
                     </FormControl>
                 </form>
+                </CardActions>
             </Card>
+            <PostPage />
         </Box>
     </>
 }
